@@ -32,7 +32,7 @@ module.exports = function (app) {
     app.post("/api/notes", urlencoded, (req, res) => {
         const noteObj = req.body;
         noteObj.id = uuidv1();
-        fs.writeFile(db, noteObj, (err) => {
+        fs.writeFile('db.json', noteObj, (err) => {
             console.log("youve sucessfully created a note!");
             if (err) {
                 return err;
