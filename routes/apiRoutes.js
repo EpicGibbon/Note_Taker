@@ -6,6 +6,7 @@
 
 let noteData = require("../db/db.json");
 const { v1: uuidv1 } = require('uuid');
+const { urlencoded } = require("express");
 
 
 //==============
@@ -28,7 +29,7 @@ module.exports = function (app) {
     //Below code handles when a user submits a form and thus submits data to the server
     //In each of the below cases, when a user submits form data (a JSON object)
 
-    app.post("/api/notes", (req, res) => {
+    app.post("/api/notes", urlencoded, (req, res) => {
         const noteObj = req.body;
         noteObj.id = uuidv1();
         fs.writeFile(db, noteObj, (err) => {
@@ -36,6 +37,7 @@ module.exports = function (app) {
             if (err) {
                 return err;
             }
+            res.send("Success!")
         })
     });
 
