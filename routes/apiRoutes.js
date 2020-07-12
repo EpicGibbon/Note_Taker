@@ -3,7 +3,7 @@
 //We are linking our routes to a source of db/db.json
 //These data sources hold JSON of information on notes
 //=================
-
+const fs = require("fs");
 let noteData = require("../db/db.json");
 const { v1: uuidv1 } = require('uuid');
 const { urlencoded } = require("express");
@@ -29,10 +29,13 @@ module.exports = function (app) {
     //Below code handles when a user submits a form and thus submits data to the server
     //In each of the below cases, when a user submits form data (a JSON object)
 
-    app.post("/api/notes", urlencoded, (req, res) => {
+    app.post("/api/notes", (req, res) => {
+        console.log(`${__dirname}/../db/db.json`);
+        let notesArray = []
         const noteObj = req.body;
-        noteObj.id = uuidv1();
-        fs.writeFile('db.json', noteObj, (err) => {
+        noteObj.id = uuidv1(); 
+        notesArray.push(noteObj);
+        fs.writeFile(`${__dirname}/../db/db.json`, notesArray, (err) => {
             console.log("youve sucessfully created a note!");
             if (err) {
                 return err;
@@ -40,9 +43,7 @@ module.exports = function (app) {
             res.send("Success!")
         })
     });
-
-    app.delete("/api/notes/:" + noteobj.id)
-};
+}
 
 
 
