@@ -7,6 +7,12 @@ let path = require("path");
 //Routing
 //=================
 module.exports = function(app) {
+
+    app.get("/", function (req, res) {
+        res.sendFile(path.join(__dirname, "../public/index.html"));
+    });
+
+
     //HTML get requests
     //Below code handles when users "visit" a page.
     //In each of the below cases the user is shown an HTML page of content
