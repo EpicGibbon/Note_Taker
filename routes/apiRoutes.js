@@ -4,9 +4,8 @@
 //These data sources hold JSON of information on notes
 //=================
 const fs = require("fs");
-let noteData = require("../db/db.json");
 const { v1: uuidv1 } = require('uuid');
-const { urlencoded } = require("express");
+
 
 
 //==============
