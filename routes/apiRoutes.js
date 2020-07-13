@@ -30,17 +30,21 @@ module.exports = function (app) {
     //In each of the below cases, when a user submits form data (a JSON object)
 
     app.post("/api/notes", (req, res) => {
-        console.log(`${__dirname}/../db/db.json`);
-        let notesArray = []
-        const noteObj = req.body;
-        noteObj.id = uuidv1(); 
-        notesArray.push(noteObj);
-        fs.writeFile(`${__dirname}/../db/db.json`, notesArray, (err) => {
-            console.log("youve sucessfully created a note!");
-            if (err) {
-                return err;
-            }
-            res.send("Success!")
+        fs.readFile(`${__dirname}/../db/db.json`, "utf8", (err, data) => {
+            console.log(data);
+            console.log(`${__dirname}/../db/db.json`);
+            let notesArray = JSON.parse(data)
+            const noteObj = req.body;
+            noteObj.id = uuidv1();
+            notesArray.push(noteObj);
+            console.log(notesArray);
+            fs.writeFile(`${__dirname}/../db/db.json`, JSON.stringify(notesArray), (err) => {
+                console.log("youve sucessfully created a note!");
+                if (err) {
+                    return err;
+                }
+                res.send("Success!")
+            })
         })
     });
 }
