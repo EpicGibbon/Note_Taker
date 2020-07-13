@@ -20,9 +20,9 @@ module.exports = function (app) {
     //(ex Localhost:PORT/api/noteData.. they are shown a JSON of the data in the table)
 
     app.get("/api/notes", function (req, res) {
+        const noteData = JSON.parse(fs.readFileSync(`${__dirname}/../db/db.json`, "utf8"))
         res.json(noteData);
         console.log(noteData);
-
     });
 
     //API POST REQUEST
@@ -30,22 +30,15 @@ module.exports = function (app) {
     //In each of the below cases, when a user submits form data (a JSON object)
 
     app.post("/api/notes", (req, res) => {
-        fs.readFile(`${__dirname}/../db/db.json`, "utf8", (err, data) => {
-            console.log(data);
-            console.log(`${__dirname}/../db/db.json`);
-            let notesArray = JSON.parse(data)
-            const noteObj = req.body;
-            noteObj.id = uuidv1();
-            notesArray.push(noteObj);
-            console.log(notesArray);
-            fs.writeFile(`${__dirname}/../db/db.json`, JSON.stringify(notesArray), (err) => {
-                console.log("youve sucessfully created a note!");
-                if (err) {
-                    return err;
-                }
-                res.send("Success!")
-            })
-        })
+        console.log("Req Body:", req.body);
+        const data = fs.readFileSync(`${__dirname}/../db/db.json`, "utf8")
+        let notesArray = JSON.parse(data)
+        const noteObj = req.body;
+        noteObj.id = uuidv1();
+        notesArray.push(noteObj);
+        fs.writeFileSync(`${__dirname}/../db/db.json`, JSON.stringify(notesArray))
+        console.log("youve sucessfully created a note!");
+        res.send("Success!")
     });
 }
 
