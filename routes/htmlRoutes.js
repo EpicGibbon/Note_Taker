@@ -21,8 +21,12 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, "../public/notes.html"));
     });
 
+    // app.get("/notes/:id", function (req, res) {
+    //     console.log(req);
+    //     res.send("You have been successful")
+    // });
 
-    //If no matching route is found then default to home
+    // If no matching route is found then default to home
     app.get("*", function (req, res) {
         res.sendFile(path.join(__dirname, "../public/index.html"))
     });

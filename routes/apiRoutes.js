@@ -39,6 +39,17 @@ module.exports = function (app) {
         console.log("youve sucessfully created a note!");
         res.send("Success!")
     });
+
+    app.delete("/api/notes/:id", (req, res) => {
+        let noteData = JSON.parse(fs.readFileSync(`${__dirname}/../db/db.json`, "utf8"));
+        const deletedNotes = noteData.filter(function (noteObj) {
+            return noteObj.id !== req.params.id;
+        })
+        fs.writeFileSync(`${__dirname}/../db/db.json`, JSON.stringify(deletedNotes));
+
+        res.json(deletedNotes);
+
+    });
 }
 
 
