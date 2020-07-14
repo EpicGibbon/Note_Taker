@@ -15,11 +15,13 @@ an application that can be used to write, save, and delete notes. This applicati
 ## Installation
 
 ```
-npm install
+npm i
 ```
 
 ## Usage
-Tbd
+
+<img src="images/screen1.png" width="350px">
+<img src="images/screen3.png" width="350px">
 
 ## License
 ISC
@@ -29,7 +31,7 @@ W3Schools, UCF Coding Bootcamp, MDN Docs, Myself
 
 ## Tests
 ```
-
+N/A
 ```
 
 ## Questions 
